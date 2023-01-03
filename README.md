@@ -10,7 +10,7 @@ yarn json-server --watch db.json --port 3001
 yarn start
 ```
 
-#### used
+### used
 
 axios
 
