@@ -1,32 +1,45 @@
 import styled from "styled-components";
 
 export const Card = ({ cardData }) => {
-  console.log(cardData);
   return (
     <Container>
       <CardTop>
-        <span>{cardData.id}#</span>
+        <span>
+          {cardData.id}# - {cardData.title}
+        </span>
         <ImgWrap>
           <img src={require("../../images/delete.png")} alt="" />
         </ImgWrap>
       </CardTop>
       <CardBody>
-        <p>{cardData.title}</p>
-        <span>{cardData.content}</span>
-        <span>{cardData.deadline}</span>
+        <p>{cardData.content}</p>
       </CardBody>
+      <CardFooter>
+        <span>{cardData.name}</span>
+        <span>deadline : ~ {cardData.deadline}</span>
+      </CardFooter>
     </Container>
   );
 };
 
 const Container = styled.div`
   margin: 5px;
-  padding: 5px;
   border: 1px solid lightgray;
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
   transition: 0.3s;
+  animation: cardFade 0.6s;
+
+  @keyframes cardFade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   &:hover {
     background-color: #f0f0f0;
   }
@@ -51,11 +64,23 @@ const ImgWrap = styled.div`
 `;
 
 const CardBody = styled.div`
+  padding: 5px;
   display: flex;
   flex-direction: column;
 
+  & p {
+    margin: 0;
+    font-size: 0.8rem;
+    overflow: hidden;
+  }
+`;
+
+const CardFooter = styled.div`
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   & span:last-child {
-    padding: 5px;
     color: gray;
     font-size: 0.8rem;
     text-align: right;

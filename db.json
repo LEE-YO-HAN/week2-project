@@ -3,8 +3,8 @@
     {
       "id": 1,
       "sortId": 1,
-      "title": "json",
-      "content": "new issue",
+      "title": "json err fixwqveewqevqwevwveqq",
+      "content": "new issue 11111111111111111111111111111111111111111111111111111111",
       "deadline": "2023-01-01",
       "status": 0,
       "name": "john"
@@ -46,7 +46,7 @@
       "name": "john"
     }
   ],
-  "profile": [
+  "name": [
     { "name": "john" },
     { "name": "hany" },
     { "name": "yellow" },

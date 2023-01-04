@@ -1,8 +1,5 @@
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { issueAPI } from "../api/api";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const getIssues = createAsyncThunk(
   "GET_ALL",
@@ -15,15 +12,6 @@ export const getIssues = createAsyncThunk(
     }
   }
 );
-
-// export const getOne = createAsyncThunk("GET-ONE", async (payload, thunkAPI) => {
-//   try {
-//     const { data } = await axios.get(`${BASE_URL}/issue${payload}`);
-//     return thunkAPI.fulfillWithValue([...data]);
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
 
 export const addIssue = createAsyncThunk(
   "ADD_ISSUE",

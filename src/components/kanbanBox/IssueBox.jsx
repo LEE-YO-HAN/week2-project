@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Card } from "./Card";
+import { AddModal } from "../modal/AddModal";
 
-export const IssueBox = ({ statusNum, issueData }) => {
+export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
 
-  console.log(statusNum);
-  console.log(issueData);
+  // add issue modal
+  const [showModal, setShowModal] = useState(false);
+  const openAddIssueModal = () => {
+    setShowModal(true);
+  };
+  const closeAddIssueModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <Container>
+      <AddModal
+        showModal={showModal}
+        closeModal={closeAddIssueModal}
+        statusNum={statusNum}
+        lastSortId={lastSortId}
+      />
       <BoradTop>
         <div>
           <p>{issueName}</p>
         </div>
-        <ImgWrap>
+        <ImgWrap onClick={openAddIssueModal}>
           <img src={require("../../images/plus.png")} alt="이슈 추가" />
         </ImgWrap>
       </BoradTop>
