@@ -8,10 +8,21 @@ export default function Home() {
   const dispatch = useDispatch();
   const { issue, isLoading } = useSelector((state) => state.issueSlice);
 
+  // get last sort id
+  const [getLastSortId, setGetLastSortId] = useState();
+
   // data fetch
   useEffect(() => {
     dispatch(getIssues());
   }, [dispatch]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      let newIssueArr = [...issue];
+      newIssueArr.sort((a, b) => b.sortId - a.sortId);
+      setGetLastSortId(newIssueArr[0].sortId);
+    }, 1000);
+  }, [issue]);
 
   // data array
   const issueBoxData = [issue, issue, issue];
@@ -38,7 +49,7 @@ export default function Home() {
               key={index}
               statusNum={index}
               issueData={item}
-              lastSortId={0}
+              lastSortId={getLastSortId}
               dndStatus={dndStatus}
               setDndStatus={setDndStatus}
             />
