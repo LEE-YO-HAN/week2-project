@@ -16,6 +16,15 @@ export default function Home() {
   // data array
   const issueBoxData = [issue, issue, issue];
 
+  // dnd status for Card.jsx
+  const [dndStatus, setDndStatus] = useState({
+    isDragOver: false,
+    position: "none",
+    prevPosition: "none",
+    startId: 0, // 삭제예정
+    endId: 0,
+  });
+
   return (
     <Container>
       <HeaderWrap>
@@ -30,6 +39,8 @@ export default function Home() {
               statusNum={index}
               issueData={item}
               lastSortId={0}
+              dndStatus={dndStatus}
+              setDndStatus={setDndStatus}
             />
           );
         })}

@@ -1,36 +1,150 @@
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteIssue } from "../../redux/issueSlice";
+import { DetailModal } from "../modal/DetailModal";
+import { useState } from "react";
 
-export const Card = ({ cardData }) => {
+export const Card = ({ cardData, dndStatus, setDndStatus }) => {
   const dispatch = useDispatch();
+  const issueDataAll = useSelector((state) => state.issueSlice);
 
-  const deleteIssueHandler = (issueId) => {
+  console.log("카드에이써", issueDataAll);
+
+  const deleteIssueHandler = (e, issueId) => {
+    e.stopPropagation();
     if (window.confirm("삭제할까요?")) {
       dispatch(deleteIssue(issueId));
     }
   };
 
+  // detail issue modal
+  const [showModal, setShowModal] = useState(false);
+  const openAddIssueModal = () => {
+    setShowModal(true);
+  };
+  const closeAddIssueModal = () => {
+    setShowModal(false);
+  };
+
+  // dnd event
+  console.log(dndStatus);
+  const dragFunction = (e, type) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log(type);
+  };
+  const onDragStart = () => {
+    setDndStatus({
+      ...dndStatus,
+      startId: cardData.id,
+    });
+  };
+  // update issue list fn
+  const onDrop = (e) => {
+    dragFunction(e, "drop");
+    console.log("여기놓을게에", cardData.id, cardData.sortId, cardData.status);
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: false,
+      position: "none",
+      endId: cardData.id,
+    });
+  };
+  const onDragEnter = (e) => {
+    dragFunction(e, "enter");
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: false,
+      position: "none",
+    });
+  };
+  const onDragLeave = (e) => {
+    dragFunction(e, "leave");
+    setDndStatus({ ...dndStatus, isDragOver: false, position: "none" });
+  };
+  const onDragOverTop = (e) => {
+    dragFunction(e, "over");
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: true,
+      position: "top",
+      prevPosition: "top",
+    });
+  };
+  const onDragOverBottom = (e) => {
+    dragFunction(e, "over");
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: true,
+      position: "bottom",
+      prevPosition: "bottom",
+    });
+  };
+
   return (
-    <Container>
-      <CardTop>
-        <span>
-          {cardData.id}# - {cardData.title}
-        </span>
-        <ImgWrap onClick={() => deleteIssueHandler(cardData.id)}>
-          <img src={require("../../images/delete.png")} alt="삭제버튼" />
-        </ImgWrap>
-      </CardTop>
-      <CardBody>
-        <p>{cardData.content}</p>
-      </CardBody>
-      <CardFooter>
-        <span>{cardData.name}</span>
-        <span>deadline : ~ {cardData.deadline}</span>
-      </CardFooter>
-    </Container>
+    <>
+      <DndHr
+        style={
+          dndStatus.position === "top"
+            ? {
+                width: "100%",
+                height: "3px",
+              }
+            : null
+        }
+      />
+      <Container
+        onClick={openAddIssueModal}
+        className="dragAndDrop"
+        draggable="true"
+        onDragStart={onDragStart}
+        onDrop={onDrop}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+      >
+        <DetailModal
+          showModal={showModal}
+          closeModal={closeAddIssueModal}
+          cardData={cardData}
+        />
+        <CardTop onDragOver={onDragOverTop}>
+          <span>
+            {cardData.id}# - {cardData.title}
+          </span>
+          <ImgWrap onClick={(e) => deleteIssueHandler(e, cardData.id)}>
+            <img src={require("../../images/delete.png")} alt="삭제버튼" />
+          </ImgWrap>
+        </CardTop>
+        <CardBody onDragOver={onDragOverTop}>
+          <p>{cardData.content}</p>
+        </CardBody>
+        <CardFooter onDragOver={onDragOverBottom}>
+          <span>{cardData.name}</span>
+          <span>deadline : ~ {cardData.deadline.replace("T", " / ")}</span>
+        </CardFooter>
+      </Container>
+      <DndHr
+        style={
+          dndStatus.position === "bottom"
+            ? {
+                width: "100%",
+                height: "3px",
+              }
+            : null
+        }
+      />
+    </>
   );
 };
+
+const DndHr = styled.hr`
+  /* display: none; */
+  width: 0px;
+  height: 0px;
+  border: none;
+  background-color: gray;
+  transition: 0.2s;
+`;
 
 const Container = styled.div`
   margin: 5px;
@@ -38,7 +152,7 @@ const Container = styled.div`
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.8s;
   animation: cardFade 0.6s;
 
   @keyframes cardFade {

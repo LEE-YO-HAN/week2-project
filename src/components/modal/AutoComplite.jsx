@@ -14,6 +14,7 @@ export const AutoCompliteInput = ({
     const data = await nameAPI.getNames().then((res) => {
       setNameData(res.data);
     });
+    return data;
   };
 
   useEffect(() => {

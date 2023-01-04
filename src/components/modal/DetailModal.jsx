@@ -3,22 +3,17 @@ import { useEffect, useState } from "react";
 import { ModalPage } from "../../util/modal";
 import { AutoCompliteInput } from "./AutoComplite";
 import { useDispatch } from "react-redux";
-import { addIssue } from "../../redux/issueSlice";
+import { updateIssue } from "../../redux/issueSlice";
 
-export const DetailModal = ({
-  showModal,
-  closeModal,
-  statusNum,
-  lastSortId,
-}) => {
+export const DetailModal = ({ showModal, closeModal, cardData }) => {
   const dispatch = useDispatch();
 
   // form data
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [status, setStatus] = useState(statusNum);
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState(cardData.title);
+  const [content, setContent] = useState(cardData.content);
+  const [deadline, setDeadline] = useState(cardData.deadline);
+  const [status, setStatus] = useState(cardData.status);
+  const [name, setName] = useState(cardData.name);
 
   // auto complite status
   const [autoComplite, setautoComplite] = useState(false);
@@ -38,25 +33,30 @@ export const DetailModal = ({
 
   // send data
   let formData = {
-    sortId: lastSortId + 1,
+    id: cardData.id,
+    sortId: cardData.sortId,
     title: title,
     content: content,
     deadline: deadline,
-    status: status,
+    status: Number(status),
     name: name,
   };
   console.log(formData);
 
-  const addIssueHandler = () => {
+  const updateIssueHandler = () => {
     if (window.confirm("저장할까요?")) {
-      dispatch(addIssue(formData));
+      dispatch(updateIssue(formData));
     }
-    closeModal();
+    // closeModal();
   };
 
   return (
     <ModalPage showModal={showModal} closeModal={closeModal}>
       <ModalForm onClick={() => setautoComplite(false)}>
+        <div>
+          <span>{cardData.id} #</span>
+          <span></span>
+        </div>
         <InputWarp>
           <label htmlFor="title">제목</label>
           <input
@@ -66,6 +66,7 @@ export const DetailModal = ({
             type="text"
             id="title"
             maxLength={30}
+            value={title}
           />
         </InputWarp>
         <InputWarp>
@@ -77,6 +78,7 @@ export const DetailModal = ({
             id="content"
             cols="30"
             rows="10"
+            value={content}
           />
         </InputWarp>
         <BottomInputWarp>
@@ -99,6 +101,7 @@ export const DetailModal = ({
             }}
             type="datetime-local"
             id="deadline"
+            value={deadline}
           />
         </BottomInputWarp>
         <StatusSelect>
@@ -106,7 +109,7 @@ export const DetailModal = ({
             onChange={(e) => {
               onChangeHandler(e.target.value, "status");
             }}
-            defaultValue={statusNum}
+            defaultValue={status}
           >
             <option value="0">Todo</option>
             <option value="1">Working</option>
@@ -120,16 +123,16 @@ export const DetailModal = ({
               closeModal();
             }}
           >
-            취소
+            닫기
           </button>
           <button
             onClick={(e) => {
               e.preventDefault();
-              addIssueHandler();
+              updateIssueHandler();
             }}
             type="submit"
           >
-            저장
+            변경사항 저장
           </button>
         </ButtonWarp>
         <AutoCompliteInput

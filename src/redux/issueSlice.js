@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import { issueAPI } from "../api/api";
 
 export const getIssues = createAsyncThunk(
@@ -70,22 +70,27 @@ export const issueSlice = createSlice({
     builder.addCase(getIssues.fulfilled, (state, action) => {
       state.issue = action.payload;
     });
-    // builder.addCase(getOne.fulfilled, (state, action) => {
-    //   state.issue = action.payload;
-    // });
     builder.addCase(addIssue.fulfilled, (state, action) => {
       state.issue.push(action.payload);
     });
     builder.addCase(updateIssue.fulfilled, (state, action) => {
-      console.log(state);
+      console.log(current(state));
       console.log(action);
-      const newState = state.issue.data.map((item) =>
-        action.meta.arg.id === item.comment_id
-          ? { ...item, content: action.meta.arg.content }
+      const newState = state.issue.map((item) =>
+        action.meta.arg.id === item.id
+          ? {
+              ...item,
+              sortId: action.meta.arg.sortId,
+              title: action.meta.arg.title,
+              content: action.meta.arg.content,
+              deadline: action.meta.arg.deadline,
+              status: action.meta.arg.status,
+              name: action.meta.arg.name,
+            }
           : item
       );
-      state.issue[0].data = newState;
-      state.issue.push(action.payload);
+      state.issue = newState;
+      // state.issue.push(action.payload);
     });
     builder.addCase(deleteIssue.fulfilled, (state, action) => {
       const newState = state.issue.filter((item) => item.id !== action.payload);

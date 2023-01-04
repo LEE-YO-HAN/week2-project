@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Card } from "./Card";
 import { AddModal } from "../modal/AddModal";
 
-export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
+export const IssueBox = ({
+  statusNum,
+  issueData,
+  lastSortId,
+  dndStatus,
+  setDndStatus,
+}) => {
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
 
@@ -15,6 +21,10 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
   const closeAddIssueModal = () => {
     setShowModal(false);
   };
+
+  // drag and drop data
+
+  const [newIssueData, setNewIssueData] = useState(issueData);
 
   return (
     <Container>
@@ -35,7 +45,14 @@ export const IssueBox = ({ statusNum, issueData, lastSortId }) => {
       <CardBox>
         {issueData?.map((item, index) => {
           if (item.status === statusNum) {
-            return <Card key={item.id} cardData={item} />;
+            return (
+              <Card
+                key={item.id}
+                cardData={item}
+                dndStatus={dndStatus}
+                setDndStatus={setDndStatus}
+              />
+            );
           }
         })}
       </CardBox>
