@@ -26,22 +26,18 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
     setShowModal(false);
   };
 
-  // dnd event
+  //####### dnd event ########
   console.log(dndStatus);
-  const dragFunction = (e, type) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log(type);
-  };
+  const [dndPosition, setDndPosition] = useState("none");
+
   const onDragStart = () => {
     setDndStatus({
       ...dndStatus,
       startId: cardData.id,
     });
   };
-  // update issue list fn
-  const onDrop = (e) => {
-    dragFunction(e, "drop");
+
+  const onDrop = () => {
     console.log("여기놓을게에", cardData.id, cardData.sortId, cardData.status);
     setDndStatus({
       ...dndStatus,
@@ -49,43 +45,44 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       position: "none",
       endId: cardData.id,
     });
+    setDndPosition("none");
   };
-  const onDragEnter = (e) => {
-    dragFunction(e, "enter");
+  const onDragEnter = () => {
     setDndStatus({
       ...dndStatus,
       isDragOver: false,
       position: "none",
     });
+    setDndPosition("none");
   };
-  const onDragLeave = (e) => {
-    dragFunction(e, "leave");
+  const onDragLeave = () => {
     setDndStatus({ ...dndStatus, isDragOver: false, position: "none" });
+    setDndPosition("none");
   };
-  const onDragOverTop = (e) => {
-    dragFunction(e, "over");
+  const onDragOverTop = () => {
     setDndStatus({
       ...dndStatus,
       isDragOver: true,
       position: "top",
       prevPosition: "top",
     });
+    setDndPosition("top");
   };
-  const onDragOverBottom = (e) => {
-    dragFunction(e, "over");
+  const onDragOverBottom = () => {
     setDndStatus({
       ...dndStatus,
       isDragOver: true,
       position: "bottom",
       prevPosition: "bottom",
     });
+    setDndPosition("botton");
   };
 
   return (
     <>
       <DndHr
         style={
-          dndStatus.position === "top"
+          dndPosition === "top"
             ? {
                 width: "100%",
                 height: "3px",
@@ -109,7 +106,7 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
         />
         <CardTop onDragOver={onDragOverTop}>
           <span>
-            {cardData.id}# - {cardData.title}
+            {cardData.id} # - {cardData.title}
           </span>
           <ImgWrap onClick={(e) => deleteIssueHandler(e, cardData.id)}>
             <img src={require("../../images/delete.png")} alt="삭제버튼" />
@@ -125,7 +122,7 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       </Container>
       <DndHr
         style={
-          dndStatus.position === "bottom"
+          dndPosition !== "none" && dndPosition !== "top"
             ? {
                 width: "100%",
                 height: "3px",
@@ -138,7 +135,6 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
 };
 
 const DndHr = styled.hr`
-  /* display: none; */
   width: 0px;
   height: 0px;
   border: none;
@@ -200,7 +196,7 @@ const CardBody = styled.div`
 `;
 
 const CardFooter = styled.div`
-  padding: 8px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
