@@ -1,14 +1,24 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { deleteIssue } from "../../redux/issueSlice";
 
 export const Card = ({ cardData }) => {
+  const dispatch = useDispatch();
+
+  const deleteIssueHandler = (issueId) => {
+    if (window.confirm("삭제할까요?")) {
+      dispatch(deleteIssue(issueId));
+    }
+  };
+
   return (
     <Container>
       <CardTop>
         <span>
           {cardData.id}# - {cardData.title}
         </span>
-        <ImgWrap>
-          <img src={require("../../images/delete.png")} alt="" />
+        <ImgWrap onClick={() => deleteIssueHandler(cardData.id)}>
+          <img src={require("../../images/delete.png")} alt="삭제버튼" />
         </ImgWrap>
       </CardTop>
       <CardBody>

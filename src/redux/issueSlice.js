@@ -17,8 +17,7 @@ export const addIssue = createAsyncThunk(
   "ADD_ISSUE",
   async (payload, thunkAPI) => {
     try {
-      // const { data } = await axios.post(`${BASE_URL}/issue`, payload);
-      const { data } = await issueAPI(payload);
+      const { data } = await issueAPI.createIssue(payload);
       console.log("data", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (errer) {
@@ -49,7 +48,7 @@ export const deleteIssue = createAsyncThunk(
   "DELETE_ISSUE",
   async (payload, thunkAPI) => {
     try {
-      await issueAPI(payload);
+      await issueAPI.deleteIssue(payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

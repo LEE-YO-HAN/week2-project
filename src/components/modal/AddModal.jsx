@@ -1,28 +1,37 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { ModalPage } from "../../util/modal";
-import { nameAPI } from "../../api/api";
+import { AutoCompliteInput } from "./AutoComplite";
+import { useDispatch } from "react-redux";
+import { addIssue } from "../../redux/issueSlice";
 
 export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
-  //name data fetch
-  const [nameData, setNameData] = useState([]);
-  const nameDataFetch = async () => {
-    const data = await nameAPI.getNames().then((res) => {
-      setNameData(res.data);
-    });
-  };
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    nameDataFetch();
-  }, [setNameData]);
-  console.log("이름데이터", nameData);
-
+  // form data
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState(statusNum);
   const [name, setName] = useState("");
 
+  // auto complite status
+  const [autoComplite, setautoComplite] = useState(false);
+  useEffect(() => {
+    if (name.length >= 1) setautoComplite(true);
+    if (name === "") setautoComplite(false);
+  }, [name]);
+
+  // onChange form data handler
+  const onChangeHandler = (e, type) => {
+    if (type === "title") setTitle(e);
+    if (type === "content") setContent(e);
+    if (type === "name") setName(e);
+    if (type === "deadline") setDeadline(e);
+    if (type === "status") setStatus(e);
+  };
+
+  // send data
   let formData = {
     sortId: lastSortId + 1,
     title: title,
@@ -33,17 +42,16 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
   };
   console.log(formData);
 
-  const onChangeHandler = (e, type) => {
-    if (type === "title") setTitle(e);
-    if (type === "content") setContent(e);
-    if (type === "name") setName(e);
-    if (type === "deadline") setDeadline(e);
-    if (type === "status") setStatus(e);
+  const addIssueHandler = () => {
+    if (window.confirm("저장할까요?")) {
+      dispatch(addIssue(formData));
+    }
+    closeModal();
   };
 
   return (
     <ModalPage showModal={showModal} closeModal={closeModal}>
-      <ModalForm>
+      <ModalForm onClick={() => setautoComplite(false)}>
         <InputWarp>
           <label htmlFor="title">제목</label>
           <input
@@ -75,6 +83,7 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
             type="담당자"
             id="name"
             autoComplete="off"
+            value={name}
           />
         </BottomInputWarp>
         <BottomInputWarp>
@@ -92,6 +101,7 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
             onChange={(e) => {
               onChangeHandler(e.target.value, "status");
             }}
+            defaultValue={statusNum}
           >
             <option value="0">Todo</option>
             <option value="1">Working</option>
@@ -99,22 +109,31 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
           </select>
         </StatusSelect>
         <ButtonWarp>
-          <button>취소</button>
-          <button>저장</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              closeModal();
+            }}
+          >
+            취소
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              addIssueHandler();
+            }}
+            type="submit"
+          >
+            저장
+          </button>
         </ButtonWarp>
+        <AutoCompliteInput
+          onChangeHandler={onChangeHandler}
+          name={name}
+          autoComplite={autoComplite}
+          setautoComplite={setautoComplite}
+        />
       </ModalForm>
-      <AutoComplite style={name === "" ? { display: "none" } : null}>
-        {nameData
-          ?.filter(
-            (item) =>
-              item.name.includes(name) === true && item.name.indexOf(name) === 0
-          )
-          .map((item, index) => {
-            if (item?.name) {
-              return <div>{item?.name}</div>;
-            }
-          })}
-      </AutoComplite>
     </ModalPage>
   );
 };
@@ -186,15 +205,6 @@ const BottomInputWarp = styled.div`
       border: 1px solid #a5a5a5;
     }
   }
-`;
-
-const AutoComplite = styled.div`
-  position: relative;
-  width: 15vw;
-  border: 3px solid lightgray;
-  background-color: white;
-  transform: translate(93%, -125%);
-  z-index: 1;
 `;
 
 const StatusSelect = styled.div`
