@@ -10,6 +10,8 @@ export default function Home() {
   const { issue } = useSelector((state) => state.issueSlice);
   const [isLoading, setisLoading] = useState(false);
 
+  const [newIssueData, setnewIssueData] = useState(issue);
+
   // get last sort id
   const [getLastSortId, setGetLastSortId] = useState();
 
@@ -19,7 +21,7 @@ export default function Home() {
     dispatch(getIssues());
     setTimeout(() => {
       setisLoading(false);
-    }, 2000);
+    }, 1500);
   }, [dispatch]);
 
   useEffect(() => {
@@ -27,11 +29,12 @@ export default function Home() {
       let newIssueArr = [...issue];
       newIssueArr.sort((a, b) => b.sortId - a.sortId);
       setGetLastSortId(newIssueArr[0].sortId);
+      setnewIssueData([...issue].sort((a, b) => a.sortId - b.sortId));
     }, 500);
   }, [issue]);
 
   // data array
-  const issueBoxData = [issue, issue, issue];
+  const issueBoxData = [newIssueData, newIssueData, newIssueData];
 
   // dnd form data
   const [newFormData, setNewFormData] = useState({});
@@ -55,11 +58,13 @@ export default function Home() {
         setNewFormData(
           [...issue].filter((item) => item.id === dndStatus.startId)[0]
         );
+      }, 100);
+      setTimeout(() => {
         setDndStatus({
           ...dndStatus,
           formData: { ...newFormData, status: dndStatus.endStatus },
         });
-      }, 100);
+      }, 400);
     }
   }, [dndStatus.endStatus, issue]);
 
