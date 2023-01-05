@@ -22,10 +22,6 @@ export const IssueBox = ({
     setShowModal(false);
   };
 
-  // drag and drop data
-
-  const [newIssueData, setNewIssueData] = useState(issueData);
-
   return (
     <Container>
       <AddModal

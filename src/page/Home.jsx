@@ -32,8 +32,10 @@ export default function Home() {
     isDragOver: false,
     position: "none",
     prevPosition: "none",
-    startId: 0, // 삭제예정
+    startId: 0,
     endId: 0,
+    startStatus: 0,
+    endStatus: 0,
   });
 
   return (

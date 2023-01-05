@@ -31,10 +31,7 @@ export const updateIssue = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      // const response = await axios.put(
-      //   `${BASE_URL}/issue/${payload.id}`,
-      //   payload
-      // );
+      console.log("작동작동작동작동작동작동작동작동작동작동작동");
       const response = await issueAPI.updateIssue(payload.id, payload);
       console.log("response", response);
       return thunkAPI.fulfillWithValue(response.data);
