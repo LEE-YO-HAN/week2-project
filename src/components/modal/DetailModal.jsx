@@ -45,13 +45,18 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
   const updateIssueHandler = () => {
     if (window.confirm("저장할까요?")) {
       dispatch(updateIssue(formData));
+      closeModal();
     }
-    // closeModal();
+  };
+
+  const formOnClickHandler = (e) => {
+    e.stopPropagation();
+    setautoComplite(false);
   };
 
   return (
     <ModalPage showModal={showModal} closeModal={closeModal}>
-      <ModalForm onClick={() => setautoComplite(false)}>
+      <ModalForm onClick={(e) => formOnClickHandler(e)}>
         <div>
           <span>{cardData.id} #</span>
           <span></span>
@@ -151,6 +156,7 @@ const ModalForm = styled.form`
   flex-direction: column;
   align-items: center;
   width: 80%;
+  z-index: 3;
 `;
 
 const InputWarp = styled.div`

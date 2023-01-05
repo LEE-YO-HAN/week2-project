@@ -1,43 +1,43 @@
 {
   "issue": [
     {
-      "sortId": 1.999,
+      "sortId": 10,
       "title": "gdgd",
       "content": "gdd",
       "deadline": "",
-      "status": 0,
+      "status": 2,
       "name": "dgdgd",
       "id": 2
     },
     {
-      "sortId": 3,
+      "sortId": 6.001,
       "title": "dg",
       "content": "gddgdg",
       "deadline": "",
-      "status": 0,
+      "status": 1,
       "name": "dgdgd",
       "id": 3
     },
     {
-      "sortId": 4,
+      "sortId": 5.999,
       "title": "gddg",
       "content": "dgdgg",
       "deadline": "",
-      "status": 0,
+      "status": 1,
       "name": "dgdgd",
       "id": 4
     },
     {
-      "sortId": 3.999,
+      "sortId": 10.001,
       "title": "dgg",
       "content": "dgd",
       "deadline": "",
-      "status": 0,
+      "status": 2,
       "name": "dgdgd",
       "id": 5
     },
     {
-      "sortId": 5.999,
+      "sortId": 5.994999999999998,
       "title": "gddggd",
       "content": "gddgdg",
       "deadline": "",
@@ -46,25 +46,25 @@
       "id": 6
     },
     {
-      "sortId": 9.998000000000001,
+      "sortId": 5.995999999999999,
       "title": "gdgd",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 2,
+      "status": 1,
       "name": "dgdgdg",
       "id": 7
     },
     {
-      "sortId": 9.002999999999998,
+      "sortId": 9.998000000000001,
       "title": "ggd",
       "content": "dgdgg",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "dgdgdg",
       "id": 8
     },
     {
-      "sortId": 9.001999999999999,
+      "sortId": 5.999,
       "title": "gdgd",
       "content": "gddgdg",
       "deadline": "",
@@ -82,7 +82,7 @@
       "id": 10
     },
     {
-      "sortId": 11,
+      "sortId": 9.998000000000001,
       "title": "dg",
       "content": "gdgdgd",
       "deadline": "",
@@ -91,16 +91,16 @@
       "id": 11
     },
     {
-      "sortId": 3.9970000000000003,
+      "sortId": 6.001,
       "title": "gd",
       "content": "gdgddgd",
       "deadline": "",
-      "status": 0,
+      "status": 1,
       "name": "gd",
       "id": 12
     },
     {
-      "sortId": 9.003999999999998,
+      "sortId": 5.997999999999999,
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",

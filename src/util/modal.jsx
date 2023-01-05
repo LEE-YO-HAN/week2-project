@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
 export const ModalPage = ({ showModal, closeModal, children }) => {
+  const onClickhandler = (e) => {
+    e.stopPropagation();
+    closeModal();
+  };
+
   return (
     <>
       {showModal ? (
-        <StyledModalBackground onClick={closeModal}>
+        <StyledModalBackground onClick={onClickhandler}>
           <StyledModalContainer onClick={(e) => e.stopPropagation()}>
             <StyledModal>{children}</StyledModal>
           </StyledModalContainer>

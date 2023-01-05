@@ -36,9 +36,6 @@ export default function Home() {
   // data array
   const issueBoxData = [newIssueData, newIssueData, newIssueData];
 
-  // dnd form data
-  const [newFormData, setNewFormData] = useState({});
-
   // dnd status for Card.jsx
   const [dndStatus, setDndStatus] = useState({
     isDragOver: false,
@@ -48,27 +45,18 @@ export default function Home() {
     endId: 0,
     startStatus: 0,
     endStatus: 0,
-    // formData: {},
   });
 
   // dnd form data
   useEffect(() => {
     if (dndStatus.startId !== 0) {
-      setTimeout(() => {
-        setNewFormData(
-          [...issue].filter((item) => item.id === dndStatus.startId)[0]
-        );
-      }, 100);
-      setTimeout(() => {
-        setDndStatus({
-          ...dndStatus,
-          // formData: { ...newFormData, status: dndStatus.endStatus },
-        });
-      }, 100);
+      setDndStatus({
+        ...dndStatus,
+      });
     }
   }, [dndStatus.endStatus, issue]);
 
-  console.log("이슈데이터", newFormData);
+  // console.log("이슈데이터", newFormData);
   console.log("스테이터스 데이터", dndStatus);
 
   return (
