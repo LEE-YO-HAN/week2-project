@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Card } from "./Card";
 import { AddModal } from "../modal/AddModal";
+import { useDispatch } from "react-redux";
+import { updateIssue } from "../../redux/issueSlice";
+import { dragFunction } from "./Card";
 
 export const IssueBox = ({
   statusNum,
@@ -10,6 +13,8 @@ export const IssueBox = ({
   dndStatus,
   setDndStatus,
 }) => {
+  const dispatch = useDispatch();
+
   let issueName =
     statusNum === 0 ? "Todo" : statusNum === 1 ? "Working" : "Done";
 
@@ -22,8 +27,21 @@ export const IssueBox = ({
     setShowModal(false);
   };
 
+  // empty box drop event
+  const emptyBoxonDrop = (e) => {
+    dragFunction(e, "ondrop");
+    let itemCount = issueData?.map((item) => {
+      if (item.status === statusNum) {
+        return item;
+      }
+    });
+    if (itemCount.length === 0) {
+      dispatch(updateIssue({ ...dndStatus.formData, status: statusNum }));
+    }
+  };
+
   return (
-    <Container>
+    <Container onDrop={emptyBoxonDrop}>
       <AddModal
         showModal={showModal}
         closeModal={closeAddIssueModal}
@@ -39,18 +57,20 @@ export const IssueBox = ({
         </ImgWrap>
       </BoradTop>
       <CardBox>
-        {issueData?.map((item, index) => {
-          if (item.status === statusNum) {
-            return (
-              <Card
-                key={item.id}
-                cardData={item}
-                dndStatus={dndStatus}
-                setDndStatus={setDndStatus}
-              />
-            );
-          }
-        })}
+        {issueData
+          ?.map((item, index) => {
+            if (item.status === statusNum) {
+              return (
+                <Card
+                  key={item.id}
+                  cardData={item}
+                  dndStatus={dndStatus}
+                  setDndStatus={setDndStatus}
+                />
+              );
+            }
+          })
+          .sort((a, b) => a.sortId - b.sortId)}
       </CardBox>
     </Container>
   );

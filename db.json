@@ -1,7 +1,7 @@
 {
   "issue": [
     {
-      "sortId": 16.991146591356088,
+      "sortId": 1,
       "title": "ㅎㅇㅎㅇ",
       "content": "ㅎㅇㅎㅇㅎㅇ",
       "deadline": "2023-01-12T06:24",
@@ -10,112 +10,103 @@
       "id": 1
     },
     {
-      "id": 2,
-      "sortId": 20.991186631133175,
-      "title": "ㅎㅇ",
-      "content": "ㅎㅇㅇㅎ",
+      "sortId": 3.998,
+      "title": "gegge",
+      "content": "etetg",
       "deadline": "",
       "status": 0,
-      "name": "ㅇㅎㅇㅎ"
+      "name": "etget",
+      "id": 2
     },
     {
-      "id": 3,
-      "sortId": 24.991957521998327,
-      "title": "ㅎㅇㅇㅎ",
-      "content": "ㅇㅇㅎ",
-      "deadline": "",
-      "status": 1,
-      "name": "ㅇㅎㅇㅎ"
-    },
-    {
-      "id": 4,
-      "sortId": 22.954698135159013,
-      "title": "ㅇㅎㅇㅎ",
-      "content": "ㅇㅎㅇ",
-      "deadline": "",
-      "status": 1,
-      "name": "ㅇㅎㅇㅎ"
-    },
-    {
-      "id": 5,
-      "sortId": 27.992528056706288,
-      "title": "ㅇㅎㅇㅎ",
-      "content": "ㅎㅇㅇㅎ",
-      "deadline": "",
-      "status": 2,
-      "name": "ㅇㅎㅇㅎ"
-    },
-    {
-      "id": 6,
-      "sortId": 27.990120481749997,
-      "title": "ㅇㅎㅎㅎㅇ",
-      "content": "ㅎㅇㅇㅎㅇㅎ",
-      "deadline": "",
-      "status": 2,
-      "name": "ㅇㅎㅎㅇ"
-    },
-    {
-      "id": 7,
-      "sortId": 27.99310683383115,
-      "title": "ㅇㅎㅇㅎ",
-      "content": "ㅎㅇㅎㅇ",
-      "deadline": "",
-      "status": 2,
-      "name": "ㅇㅎㅎㅇ"
-    },
-    {
-      "id": 8,
-      "sortId": 22.962103420144523,
-      "title": "ㅇㅎㅇㅎ",
-      "content": "ㅎㅇㅎ",
-      "deadline": "",
-      "status": 1,
-      "name": "ㅇㅎㅎㅇ"
-    },
-    {
-      "id": 9,
-      "sortId": 27.987201926791066,
-      "title": "ㅇㅎㅎㅇ",
-      "content": "ㅎㅇㅇ",
-      "deadline": "",
-      "status": 2,
-      "name": "ㅇㅎㅎㅇ"
-    },
-    {
-      "id": 10,
-      "sortId": 24.991035754129108,
-      "title": "ㅇㅎㅇㅎ",
-      "content": "ㅇㅎㅎㅇ",
-      "deadline": "",
-      "status": 1,
-      "name": "ㅇㅎㅇㅎ"
-    },
-    {
-      "id": 11,
-      "sortId": 27.98074399057744,
-      "title": "ㅎㅇㅇㅎ",
-      "content": "ㅇㅎㅎㅇㅎㅇ",
-      "deadline": "",
-      "status": 2,
-      "name": "ㅇㅎㅇㅎ"
-    },
-    {
-      "id": 12,
-      "sortId": 20.9874283285612,
-      "title": "ㅎㅇㅎ",
-      "content": "ㅇㅎㅇㅎ",
+      "sortId": 3,
+      "title": "etet",
+      "content": "tetete",
       "deadline": "",
       "status": 0,
-      "name": "ㅇㅎㅇㅎ"
+      "name": "etgette",
+      "id": 3
     },
     {
-      "id": 13,
-      "sortId": 20.990865617056397,
-      "title": "ㅇㅎㅇㅎ",
-      "content": "ㅎㅇㅎ",
+      "sortId": 3.999,
+      "title": "teet",
+      "content": "tetetete",
       "deadline": "",
       "status": 0,
-      "name": "ㅇㅎㅇㅎ"
+      "name": "etgette",
+      "id": 4
+    },
+    {
+      "sortId": 4.999,
+      "title": "ettt",
+      "content": "eteete\n",
+      "deadline": "",
+      "status": 0,
+      "name": "etgette",
+      "id": 5
+    },
+    {
+      "sortId": 2.999,
+      "title": "ettt",
+      "content": "eettete",
+      "deadline": "",
+      "status": 0,
+      "name": "",
+      "id": 6
+    },
+    {
+      "sortId": 4.996999999999999,
+      "title": "teetet",
+      "content": "ettetete",
+      "deadline": "",
+      "status": 0,
+      "name": "tetetetetet",
+      "id": 7
+    },
+    {
+      "sortId": 8.002999999999998,
+      "title": "etete",
+      "content": "tetette",
+      "deadline": "",
+      "status": 1,
+      "name": "tetetetetetteetet",
+      "id": 8
+    },
+    {
+      "sortId": 3.998,
+      "title": "ette",
+      "content": "tetttt",
+      "deadline": "",
+      "status": 0,
+      "name": "tetetetetetteetet",
+      "id": 9
+    },
+    {
+      "sortId": 2.999,
+      "title": "tete",
+      "content": "tetete",
+      "deadline": "",
+      "status": 0,
+      "name": "",
+      "id": 11
+    },
+    {
+      "sortId": 2.999,
+      "title": "ettete",
+      "content": "tetete",
+      "deadline": "",
+      "status": 0,
+      "name": "tetetetete",
+      "id": 13
+    },
+    {
+      "sortId": 14.001999999999999,
+      "title": "gfdgd",
+      "content": "ggdgd",
+      "deadline": "",
+      "status": 1,
+      "name": "dgdgdg",
+      "id": 14
     }
   ],
   "name": [

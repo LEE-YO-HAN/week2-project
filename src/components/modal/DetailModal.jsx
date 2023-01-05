@@ -41,7 +41,6 @@ export const DetailModal = ({ showModal, closeModal, cardData }) => {
     status: Number(status),
     name: name,
   };
-  console.log(formData);
 
   const updateIssueHandler = () => {
     if (window.confirm("저장할까요?")) {

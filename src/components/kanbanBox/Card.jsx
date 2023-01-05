@@ -5,11 +5,17 @@ import { DetailModal } from "../modal/DetailModal";
 import { useState } from "react";
 import { updateIssue } from "../../redux/issueSlice";
 
+// dnd function
+export const dragFunction = (e, type) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.log(type);
+};
+
+// component start ##############
 export const Card = ({ cardData, dndStatus, setDndStatus }) => {
   const dispatch = useDispatch();
   const { issue } = useSelector((state) => state.issueSlice);
-
-  console.log("카드에이써", issue);
 
   const deleteIssueHandler = (e, issueId) => {
     e.stopPropagation();
@@ -31,17 +37,11 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
   console.log(dndStatus);
   const [dndPosition, setDndPosition] = useState("none");
 
-  const dragFunction = (e, type) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log(type);
-  };
-
   const onDragStart = () => {
     setDndStatus({
       ...dndStatus,
-      startId: cardData.id,
-      startStatus: cardData.status,
+      startId: cardData?.id,
+      startStatus: cardData?.status,
     });
   };
 
@@ -82,19 +82,25 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
   // on Drop & fetch
   const onDrop = (e) => {
     dragFunction(e, "ondrop");
-    console.log("여기놓을게에", cardData.id, cardData.sortId, cardData.status);
+    console.log(
+      "여기놓을게에",
+      cardData?.id,
+      cardData?.sortId,
+      cardData?.status
+    );
     setDndStatus({
       ...dndStatus,
       isDragOver: false,
       position: "none",
-      endId: cardData.id,
-      endStatus: cardData.status,
+      endId: cardData?.id,
+      endStatus: cardData?.status,
+      formData: cardData,
     });
     setDndPosition("none");
 
     setTimeout(() => {
       updateIssueHandler();
-    }, 100);
+    }, 300);
   };
 
   const updateIssueHandler = () => {
@@ -108,22 +114,6 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
     console.log("체크용", forRejectArr);
     console.log("체크용", cardIndex);
 
-    if (dndStatus.startStatus === cardData.endStatus) {
-      // not change
-      if (
-        dndStatus.prevPosition === "bottom" &&
-        dndStatus.endId === forRejectArr[cardIndex - 1].id
-      ) {
-        return;
-      }
-      if (
-        dndStatus.prevPosition === "top" &&
-        dndStatus.endId === forRejectArr[cardIndex + 1].id
-      ) {
-        return;
-      }
-    }
-    ////// change
     // drag data
     const startIssueData = [...issue].filter(
       (item) => item.id === dndStatus.startId
@@ -137,60 +127,74 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
     const dropedCardIndex = thisStatusArr.findIndex(
       (item) => item.id === dndStatus.endId
     );
-    console.log("어딨냐", thisStatusArr);
+    console.log("어딨냐", dndStatus);
+    console.log("어딨냐1", thisStatusArr);
     console.log("어딨냐2", dropedCardIndex);
 
-    // payload data
-    const etcData = [...issue].filter(
-      (item) => item.id === dndStatus.startId
-    )[0];
-    let formData = {
-      id: dndStatus.startId,
-      sortId: startIssueData.sortId,
-      title: etcData.title,
-      content: etcData.content,
-      deadline: etcData.deadline,
-      status: dndStatus.endStatus,
-      name: etcData.name,
-    };
-    console.log("그냥 폼데이터도 내놔라", formData);
-    console.log("그냥 etc 폼데이터도 내놔라", etcData);
-
+    // 조건은 위에서 드랍, 아래에서 드랍 두 가지
     if (dndStatus.prevPosition === "bottom") {
+      // 바꾸지 않을 경우
       if (
+        dndStatus.startStatus === dndStatus.endStatus &&
+        dndStatus.endId === forRejectArr[cardIndex + 1].id
+      ) {
+        console.log("안바꿈1");
+        return;
+      } else if (dndStatus.startId === dndStatus.endId) {
+        console.log("안바꿈2");
+        return;
+      }
+      // 바꿀 경우
+      else if (
         thisStatusArr[dropedCardIndex].sortId < startIssueData.sortId &&
         startIssueData.sortId < thisStatusArr[dropedCardIndex + 1].sortId
       ) {
-        dispatch(updateIssue(formData));
+        console.log("bottom1");
+        dispatch(updateIssue({ ...dndStatus.formData }));
+      } else if (
+        thisStatusArr[dropedCardIndex].sortId >= startIssueData.sortId
+      ) {
+        console.log("bottom2");
+        dispatch(
+          updateIssue({
+            ...dndStatus.formData,
+            sortId: thisStatusArr[dropedCardIndex].sortId + 0.001,
+          })
+        );
       }
-      if (thisStatusArr[dropedCardIndex].sortId >= startIssueData.sortId) {
-        let newFormData = {
-          ...formData,
-          sortId: thisStatusArr[dropedCardIndex].sortId + Math.random() * 0.001,
-        };
-        console.log("왜 패치가 안되냐", newFormData);
-        dispatch(updateIssue(newFormData));
-      }
-    }
-
-    if (dndStatus.prevPosition === "top") {
+    } else {
+      // top 부분으로 드랍할때
+      // 바꾸지 않을 경우
       if (
+        dndStatus.startStatus === dndStatus.endStatus &&
+        (dndStatus.endId === forRejectArr[cardIndex - 1].id ||
+          forRejectArr[cardIndex - 1].id === undefined)
+      ) {
+        console.log("안바꿈3");
+        return;
+      } else if (dndStatus.startId === dndStatus.endId) {
+        console.log("안바꿈4");
+        return;
+      }
+      // 바꿀 경우
+      else if (
         thisStatusArr[dropedCardIndex].sortId > startIssueData.sortId &&
         startIssueData.sortId > thisStatusArr[dropedCardIndex + 1].sortId
       ) {
-        dispatch(updateIssue(formData));
-      }
-      if (thisStatusArr[dropedCardIndex].sortId <= startIssueData.sortId) {
-        let newFormData = {
-          ...formData,
-          sortId: thisStatusArr[dropedCardIndex].sortId - Math.random() * 0.01,
-          status: dndStatus.endStatus,
-        };
-        console.log("왜 패치가 안되냐22", newFormData);
-        dispatch(updateIssue(newFormData));
+        console.log("top1");
+        dispatch(updateIssue({ ...dndStatus.formData }));
+      } else if (
+        thisStatusArr[dropedCardIndex].sortId <= startIssueData.sortId
+      ) {
+        console.log("top2");
+        dispatch(
+          updateIssue({
+            ...dndStatus.formData,
+            sortId: thisStatusArr[dropedCardIndex].sortId - 0.001,
+          })
+        );
       }
     }
-    console.log("살아남아따");
   };
 
   return (

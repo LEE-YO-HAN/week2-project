@@ -64,12 +64,17 @@ export const issueSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getIssues.pending, (state, action) => {});
     builder.addCase(getIssues.fulfilled, (state, action) => {
       state.issue = action.payload;
     });
+    builder.addCase(getIssues.rejected, (state, action) => {});
+    builder.addCase(addIssue.pending, (state, action) => {});
     builder.addCase(addIssue.fulfilled, (state, action) => {
       state.issue.push(action.payload);
     });
+    builder.addCase(addIssue.rejected, (state, action) => {});
+    builder.addCase(updateIssue.pending, (state, action) => {});
     builder.addCase(updateIssue.fulfilled, (state, action) => {
       console.log(current(state));
       console.log(action);
@@ -86,9 +91,10 @@ export const issueSlice = createSlice({
             }
           : item
       );
-      state.issue = newState;
+      state.issue = newState.sort((a, b) => a.sortId - b.sortId);
       // state.issue.push(action.payload);
     });
+    builder.addCase(updateIssue.rejected, (state, action) => {});
     builder.addCase(deleteIssue.fulfilled, (state, action) => {
       const newState = state.issue.filter((item) => item.id !== action.payload);
       state.issue = newState;

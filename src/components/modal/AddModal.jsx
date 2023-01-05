@@ -40,7 +40,6 @@ export const AddModal = ({ showModal, closeModal, statusNum, lastSortId }) => {
     status: status,
     name: name,
   };
-  console.log(formData);
 
   const addIssueHandler = () => {
     if (window.confirm("저장할까요?")) {

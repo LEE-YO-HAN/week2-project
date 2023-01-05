@@ -3,17 +3,23 @@ import styled from "styled-components";
 import { IssueBox } from "../components/kanbanBox/IssueBox";
 import { useSelector, useDispatch } from "react-redux";
 import { getIssues } from "../redux/issueSlice";
+import { LoadingSpinner } from "../components/loadingSpinner/LoadingSpinner";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { issue, isLoading } = useSelector((state) => state.issueSlice);
+  const { issue } = useSelector((state) => state.issueSlice);
+  const [isLoading, setisLoading] = useState(false);
 
   // get last sort id
   const [getLastSortId, setGetLastSortId] = useState();
 
   // data fetch
   useEffect(() => {
+    setisLoading(true);
     dispatch(getIssues());
+    setTimeout(() => {
+      setisLoading(false);
+    }, 2000);
   }, [dispatch]);
 
   useEffect(() => {
@@ -21,11 +27,14 @@ export default function Home() {
       let newIssueArr = [...issue];
       newIssueArr.sort((a, b) => b.sortId - a.sortId);
       setGetLastSortId(newIssueArr[0].sortId);
-    }, 1000);
+    }, 500);
   }, [issue]);
 
   // data array
   const issueBoxData = [issue, issue, issue];
+
+  // dnd form data
+  const [newFormData, setNewFormData] = useState({});
 
   // dnd status for Card.jsx
   const [dndStatus, setDndStatus] = useState({
@@ -36,10 +45,31 @@ export default function Home() {
     endId: 0,
     startStatus: 0,
     endStatus: 0,
+    formData: {},
   });
+
+  // dnd form data
+  useEffect(() => {
+    if (dndStatus.startId !== 0) {
+      setTimeout(() => {
+        setNewFormData(
+          [...issue].filter((item) => item.id === dndStatus.startId)[0]
+        );
+        setDndStatus({
+          ...dndStatus,
+          formData: { ...newFormData, status: dndStatus.endStatus },
+        });
+      }, 100);
+    }
+  }, [dndStatus.endStatus, issue]);
+
+  console.log("이슈데이터", newFormData);
+  console.log("스테이터스 데이터", dndStatus);
 
   return (
     <Container>
+      {isLoading ? <LoadingSpinner /> : null}
+
       <HeaderWrap>
         <p>Issue Tracker</p>
         <hr />
