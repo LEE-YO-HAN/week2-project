@@ -98,9 +98,7 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
     });
     setDndPosition("none");
 
-    setTimeout(() => {
-      updateIssueHandler();
-    }, 300);
+    updateIssueHandler();
   };
 
   const updateIssueHandler = () => {
@@ -124,76 +122,35 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
     const thisStatusArr = [...issue].filter(
       (item) => item.status === dndStatus.endStatus
     );
-    const dropedCardIndex = thisStatusArr.findIndex(
-      (item) => item.id === dndStatus.endId
-    );
+
+    let dropCardIndexNumber = 0;
+    const dropedCardIndex = thisStatusArr.map((item, index) => {
+      if (item.id === dndStatus.endId) {
+        dropCardIndexNumber = index;
+      }
+    });
     console.log("어딨냐", dndStatus);
     console.log("어딨냐1", thisStatusArr);
     console.log("어딨냐2", dropedCardIndex);
+    console.log("어딨냐3", dropCardIndexNumber);
 
-    // 조건은 위에서 드랍, 아래에서 드랍 두 가지
+    // new critica
     if (dndStatus.prevPosition === "bottom") {
-      // 바꾸지 않을 경우
-      if (
-        dndStatus.startStatus === dndStatus.endStatus &&
-        dndStatus.endId === forRejectArr[cardIndex + 1].id
-      ) {
-        console.log("안바꿈1");
-        return;
-      } else if (dndStatus.startId === dndStatus.endId) {
-        console.log("안바꿈2");
-        return;
-      }
-      // 바꿀 경우
-      else if (
-        thisStatusArr[dropedCardIndex].sortId < startIssueData.sortId &&
-        startIssueData.sortId < thisStatusArr[dropedCardIndex + 1].sortId
-      ) {
-        console.log("bottom1");
-        dispatch(updateIssue({ ...dndStatus.formData }));
-      } else if (
-        thisStatusArr[dropedCardIndex].sortId >= startIssueData.sortId
-      ) {
-        console.log("bottom2");
-        dispatch(
-          updateIssue({
-            ...dndStatus.formData,
-            sortId: thisStatusArr[dropedCardIndex].sortId + 0.001,
-          })
-        );
-      }
-    } else {
-      // top 부분으로 드랍할때
-      // 바꾸지 않을 경우
-      if (
-        dndStatus.startStatus === dndStatus.endStatus &&
-        (dndStatus.endId === forRejectArr[cardIndex - 1].id ||
-          forRejectArr[cardIndex - 1].id === undefined)
-      ) {
-        console.log("안바꿈3");
-        return;
-      } else if (dndStatus.startId === dndStatus.endId) {
-        console.log("안바꿈4");
-        return;
-      }
-      // 바꿀 경우
-      else if (
-        thisStatusArr[dropedCardIndex].sortId > startIssueData.sortId &&
-        startIssueData.sortId > thisStatusArr[dropedCardIndex + 1].sortId
-      ) {
-        console.log("top1");
-        dispatch(updateIssue({ ...dndStatus.formData }));
-      } else if (
-        thisStatusArr[dropedCardIndex].sortId <= startIssueData.sortId
-      ) {
-        console.log("top2");
-        dispatch(
-          updateIssue({
-            ...dndStatus.formData,
-            sortId: thisStatusArr[dropedCardIndex].sortId - 0.001,
-          })
-        );
-      }
+      dispatch(
+        updateIssue({
+          ...startIssueData,
+          sortId: thisStatusArr[dropCardIndexNumber].sortId + 0.001,
+          status: dndStatus.endStatus,
+        })
+      );
+    } else if (dndStatus.prevPosition === "top") {
+      dispatch(
+        updateIssue({
+          ...startIssueData,
+          sortId: thisStatusArr[dropCardIndexNumber].sortId - 0.001,
+          status: dndStatus.endStatus,
+        })
+      );
     }
   };
 

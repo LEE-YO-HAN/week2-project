@@ -48,7 +48,7 @@ export default function Home() {
     endId: 0,
     startStatus: 0,
     endStatus: 0,
-    formData: {},
+    // formData: {},
   });
 
   // dnd form data
@@ -62,9 +62,9 @@ export default function Home() {
       setTimeout(() => {
         setDndStatus({
           ...dndStatus,
-          formData: { ...newFormData, status: dndStatus.endStatus },
+          // formData: { ...newFormData, status: dndStatus.endStatus },
         });
-      }, 400);
+      }, 100);
     }
   }, [dndStatus.endStatus, issue]);
 

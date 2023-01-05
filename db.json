@@ -1,7 +1,7 @@
 {
   "issue": [
     {
-      "sortId": 2,
+      "sortId": 1.999,
       "title": "gdgd",
       "content": "gdd",
       "deadline": "",
@@ -28,7 +28,7 @@
       "id": 4
     },
     {
-      "sortId": 5,
+      "sortId": 3.999,
       "title": "dgg",
       "content": "dgd",
       "deadline": "",
@@ -46,16 +46,16 @@
       "id": 6
     },
     {
-      "sortId": 7,
+      "sortId": 9.998000000000001,
       "title": "gdgd",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "dgdgdg",
       "id": 7
     },
     {
-      "sortId": 8,
+      "sortId": 9.002999999999998,
       "title": "ggd",
       "content": "dgdgg",
       "deadline": "",
@@ -64,7 +64,7 @@
       "id": 8
     },
     {
-      "sortId": 9,
+      "sortId": 9.001999999999999,
       "title": "gdgd",
       "content": "gddgdg",
       "deadline": "",
@@ -91,16 +91,16 @@
       "id": 11
     },
     {
-      "sortId": 7.999,
+      "sortId": 3.9970000000000003,
       "title": "gd",
       "content": "gdgddgd",
       "deadline": "",
-      "status": 1,
+      "status": 0,
       "name": "gd",
       "id": 12
     },
     {
-      "sortId": 7.997999999999999,
+      "sortId": 9.003999999999998,
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",
