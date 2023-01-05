@@ -29,7 +29,6 @@ export const IssueBox = ({
 
   // empty box drop event
 
-  console.log(dndStatus);
   const [dndPosition, setDndPosition] = useState("none");
 
   const onDragStart = () => {};
@@ -42,10 +41,22 @@ export const IssueBox = ({
     });
     setDndPosition("none");
   };
+
   const onDragLeave = (e) => {
     dragFunction(e, "ondragleave");
     setDndStatus({ ...dndStatus, isDragOver: false, position: "none" });
     setDndPosition("none");
+  };
+
+  const onDragOver = (e) => {
+    dragFunction(e, "ondragover");
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: true,
+      position: "top",
+      prevPosition: "top",
+    });
+    setDndPosition("top");
   };
 
   // on Drop & fetch
@@ -62,8 +73,14 @@ export const IssueBox = ({
 
     updateIssueFormEmpty();
   };
+  console.log("ㅎㅇ", dndStatus);
 
-  const updateIssueFormEmpty = () => {};
+  const updateIssueFormEmpty = () => {
+    let startDCardData = [...issueData].filter(
+      (item) => item.id === dndStatus.startId
+    )[0];
+    dispatch(updateIssue({ ...startDCardData, status: dndStatus.endStatus }));
+  };
 
   return (
     <Container
@@ -71,6 +88,7 @@ export const IssueBox = ({
       onDragStart={onDragStart}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
+      onDragOver={onDragOver}
       onDrop={onDrop}
     >
       <AddModal
