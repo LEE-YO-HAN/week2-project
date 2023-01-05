@@ -19,7 +19,7 @@
       "id": 3
     },
     {
-      "sortId": 5.999,
+      "sortId": 5.997999999999999,
       "title": "gddg",
       "content": "dgdgg",
       "deadline": "",
@@ -37,20 +37,20 @@
       "id": 5
     },
     {
-      "sortId": 5.994999999999998,
+      "sortId": 9.998000000000001,
       "title": "gddggd",
       "content": "gddgdg",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "dgdgdg",
       "id": 6
     },
     {
-      "sortId": 5.995999999999999,
+      "sortId": 9.997000000000002,
       "title": "gdgd",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "dgdgdg",
       "id": 7
     },
@@ -64,11 +64,11 @@
       "id": 8
     },
     {
-      "sortId": 5.999,
+      "sortId": 9.999,
       "title": "gdgd",
       "content": "gddgdg",
       "deadline": "",
-      "status": 1,
+      "status": 2,
       "name": "dgdgdg",
       "id": 9
     },
@@ -82,11 +82,11 @@
       "id": 10
     },
     {
-      "sortId": 9.998000000000001,
+      "sortId": 11.001999999999999,
       "title": "dg",
       "content": "gdgdgd",
       "deadline": "",
-      "status": 2,
+      "status": 0,
       "name": "gd",
       "id": 11
     },
@@ -100,13 +100,58 @@
       "id": 12
     },
     {
-      "sortId": 5.997999999999999,
+      "sortId": 6.001,
       "title": "gd",
       "content": "gdgdgd",
       "deadline": "",
       "status": 1,
       "name": "gd",
       "id": 13
+    },
+    {
+      "sortId": 11.001,
+      "title": "ㅎㅇㅎㅇㅎ",
+      "content": "모달 버그 꿀밤마렵네요 ^ ^",
+      "deadline": "2023-01-10T23:57",
+      "status": 0,
+      "name": "이요한",
+      "id": 14
+    },
+    {
+      "sortId": 11.002999999999998,
+      "title": "ㅎㅇㅎㅇ",
+      "content": "ㅇㅎㅇㅇㅎ",
+      "deadline": "2023-01-10T23:57",
+      "status": 0,
+      "name": "이요한",
+      "id": 15
+    },
+    {
+      "sortId": 11.002999999999998,
+      "title": "ㅎㅇㅇㅎㅎㅇ",
+      "content": "ㅇㅎㅎㅇ",
+      "deadline": "2023-01-10T23:57",
+      "status": 0,
+      "name": "이요한",
+      "id": 16
+    },
+    {
+      "sortId": 5.996999999999999,
+      "title": "ㅎㅇㅇㅎ",
+      "content": "ㅇㅎㅇㅎ\n",
+      "deadline": "2023-01-10T23:57",
+      "status": 1,
+      "name": "이요한",
+      "id": 17
+    },
+    {
+      "sortId": 11.001999999999999,
+      "title": "ㅎㅇㅇㅎ",
+      "content": "ㅇㅎㅇㅎ",
+      "deadline": "2023-01-10T23:57",
+      "status": 0,
+      "name": "이요한",
+      "id": 18
     }
   ],
   "name": [

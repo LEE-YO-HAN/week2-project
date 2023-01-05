@@ -94,7 +94,6 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       position: "none",
       endId: cardData?.id,
       endStatus: cardData?.status,
-      formData: cardData,
     });
     setDndPosition("none");
 
@@ -168,7 +167,6 @@ export const Card = ({ cardData, dndStatus, setDndStatus }) => {
       />
       <Container
         onClick={openAddIssueModal}
-        className="dragAndDrop"
         draggable="true"
         onDragStart={onDragStart}
         onDragEnter={onDragEnter}

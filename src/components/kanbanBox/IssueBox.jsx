@@ -28,20 +28,51 @@ export const IssueBox = ({
   };
 
   // empty box drop event
-  const emptyBoxonDrop = (e) => {
-    dragFunction(e, "ondrop");
-    let itemCount = issueData?.map((item) => {
-      if (item.status === statusNum) {
-        return item;
-      }
+
+  console.log(dndStatus);
+  const [dndPosition, setDndPosition] = useState("none");
+
+  const onDragStart = () => {};
+
+  const onDragEnter = () => {
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: false,
+      position: "none",
     });
-    if (itemCount.length === 0) {
-      dispatch(updateIssue({ ...dndStatus.formData, status: statusNum }));
-    }
+    setDndPosition("none");
+  };
+  const onDragLeave = (e) => {
+    dragFunction(e, "ondragleave");
+    setDndStatus({ ...dndStatus, isDragOver: false, position: "none" });
+    setDndPosition("none");
   };
 
+  // on Drop & fetch
+  const onDrop = (e) => {
+    dragFunction(e, "ondrop");
+
+    setDndStatus({
+      ...dndStatus,
+      isDragOver: false,
+      position: "none",
+      endStatus: statusNum,
+    });
+    setDndPosition("none");
+
+    updateIssueFormEmpty();
+  };
+
+  const updateIssueFormEmpty = () => {};
+
   return (
-    <Container onDrop={emptyBoxonDrop}>
+    <Container
+      draggable="true"
+      onDragStart={onDragStart}
+      onDragEnter={onDragEnter}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+    >
       <AddModal
         showModal={showModal}
         closeModal={closeAddIssueModal}
